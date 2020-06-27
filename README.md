@@ -1,7 +1,7 @@
 ## Aplikacja demo - powstała na zakończenie kursu: "Java od podstaw".
 
 #### Zastosowane technologie: 
-springboot, thymeleaf, html, css, js, bootstrap.
+Spring(Boot, Security, Data), Thymeleaf, HTML, CSS, js, Bootstrap, JUnit 5, Lombok
 
 #### Opis
 Aplikacja przeznaczona jest dla osoby posiadającej nieruchomości na wynajem (tutaj domki).
