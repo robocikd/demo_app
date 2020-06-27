@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezerwacje</title>
+    <meta th:replace="~{common::viewport}"/>
+    <link th:replace="~{common::bootstrap}"/>
+    <link th:replace="~{common::main}"/>
+</head>
+<body>
+<nav th:replace="~{common::menu}"></nav>
+
+<header>
+    <h1>DemoApp</h1>
+    <p>Admin can create, update and delete cottages.<br>
+        Password: admin<br>
+        Username: admin<br>
+        User can register (email confirmation required) and then book cottages.
+    </p>
+</header>
+
+<div class="alert alert-danger alert-dismissible" th:if="${errormessage}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong th:text="${errormessage}"></strong>
+</div>
+
+<div class="container">
+    <div class="row pb-2 pt-2">
+        <a class="col-sm btn btn-light btn-sm" th:href="@{/cottage/morze}" th:text="#{index.morze}">Domki
+            nad morzem</a>
+        <a class="col-sm btn btn-light btn-sm" th:href="@{/cottage/gory}">Domki w gorach</a>
+        <a class="col-sm btn btn-dark" th:href="@{/cottage/create}" sec:authorize="hasRole('ADMIN')">Utwórz nowy
+            domek </a></li>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mb-4 pb-3 border" style="border-width: 5px !important;" th:each="cottage : ${cottages}">
+        <div class="col-md-4 mt-3" th:each="file, stat: ${cottage.cottageFiles}">
+            <figure th:if="${stat.first}">
+                <img class="img-fluid"
+                     th:src="@{/images/} + ${cottage.cottageFiles[__${stat.index}__].modifiedFileName}"/>
+            </figure>
+        </div>
+        <div class="col-md-8">
+            <span class="btn" th:text="${cottage.name}"/>
+            <span class="btn" th:text="${cottage.city}"/>
+            <span class="btn" th:text="${cottage.streetAndNumber}"/>
+
+
+            <a class="btn btn-link" sec:authorize="hasRole('ADMIN')"
+               th:href="@{/cottage/edit?id=} + ${cottage.id} + @{&ampreg=} + ${cottage.region}">Edytuj</a>
+
+            <a sec:authorize="hasRole('ADMIN')" class="btn btn-link" th:href="@{/cottage/delete?id=} + ${cottage.id}">Usuń</a>
+
+            <a sec:authorize="hasRole('USER')" class="btn btn-link" th:href="@{/cottage/bookCottage/} + ${cottage.id}">Zarezerwuj
+                domek</a>
+
+            <a sec:authorize="isAnonymous()" class="btn btn-link" th:href="@{/cottage/bookCottage/} + ${cottage.id}">Zarezerwuj
+                domek</a>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{common::footer}"></footer>
+<div th:replace="~{common::bootstrapScripts}"></div>
+</body>
+</html>

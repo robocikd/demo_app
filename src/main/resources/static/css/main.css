@@ -1,0 +1,26 @@
+head {
+    align-items: center;
+}
+
+footer {
+    font-size: 11px;
+}
+
+h1, h3, h4, p {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sidemenu {
+    position: fixed;
+    float: right;
+}
+
+.cottage {
+    text-align: center;
+}
+
+.border-5 {
+    border: 5px #6c757d !important;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezerwacje</title>
+    <meta th:replace="~{common::viewport}"/>
+    <link th:replace="~{common::bootstrap}"/>
+    <link th:replace="~{common::main}"/>
+</head>
+<body>
+<nav th:replace="~{common::menu}"></nav>
+
+<header>
+    <h3>Witam Cię w systemie rezerwacji domków.</h3>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col mx-2">
+            <p class="mb-0 font-weight-bold">Nazwa</p>
+            <p th:text="${cottage.name}"></p>
+        </div>
+        <div class="col mx-3">
+            <p class="mb-0 font-weight-bold">Miejsce</p>
+            <p th:text="${cottage.city}"></p>
+        </div>
+        <div class="col mx-3">
+            <p class="mb-0 font-weight-bold">Adres</p>
+            <p th:text="${cottage.streetAndNumber}"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6" th:each="file, stat: ${cottage.cottageFiles}">
+            <figure>
+                <img class="img-fluid"
+                     th:src="@{/images/} + ${cottage.cottageFiles[__${stat.index}__].modifiedFileName}"/>
+            </figure>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col justify-content-center">
+            <form th:action="@{/cottage/bookCottage/} + ${cottage.id}" method="POST" th:object="${reservation}">
+                <div class="form-group">
+                    <input class="form-control" type="hidden" id="id" name="id" th:field="*{id}"/>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="date" id="odKiedy" name="odKiedy"
+                           th:field="*{from}"/>
+                </div>
+                <div class="form-group">
+
+                    <input class="form-control" type="date" id="doKiedy" name="doKiedy"
+                           th:field="*{to}"/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-light" type="submit">Zarezerwuj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{common::footer}"></footer>
+<div th:replace="~{common::bootstrapScripts}"></div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezerwacje</title>
+    <meta th:replace="~{common::viewport}"/>
+    <link th:replace="~{common::bootstrap}"/>
+    <link th:replace="~{common::main}"/>
+
+</head>
+<body>
+<div th:insert="~{common::menu}"></div>
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <table class="table table-light">
+            <thead>
+            <th>Login</th>
+            <th>E-mail</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Adres</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td><span th:text=" ${customer.login}"/></td>
+                <td><span th:text="${customer.email}"/></td>
+                <td><span th:text="${customer.customerName}"/></td>
+                <td><span th:text="${customer.customerSurname}"/></td>
+                <td><span th:text="${customer.customerAddress}"/></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-light">
+            <thead>
+            <th>Nazwa domku</th>
+            <th>Od</th>
+            <th>Do</th>
+            </thead>
+            <tbody>
+            <tr th:each="res : ${reservations}">
+                <td><span th:text="${res.cottage.name}"/></td>
+                <td><span th:text="${res.from}"/></td>
+                <td><span th:text="${res.to}"/></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:replace="~{common::footer}"></footer>
+<div th:replace="~{common::bootstrapScripts}"></div>
+</body>
+</html>

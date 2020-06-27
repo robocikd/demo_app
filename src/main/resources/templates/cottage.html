@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cottage</title>
+    <meta th:replace="~{common::viewport}"/>
+    <link th:replace="~{common::bootstrap}"/>
+    <link th:replace="~{common::main}"/>
+</head>
+<body>
+<div th:insert="~{common::menu}"></div>
+
+Domki - <span th:text="${region}"/>
+<div class="container">
+
+    <table>
+        <thead class="table">
+        <tr>
+       <span>
+           <th>Nazwa</th>
+           <th>Miasto</th>
+           <th>Adres</th>
+           <th>Rezerwacje</th>
+       </span>
+        </tr>
+        </thead>
+        <tbody class="tab-content">
+
+        <tr th:each="cottage : ${cottages}">
+            <td><span th:text="${cottage.name}"/></td>
+            <td><span th:text="${cottage.city}"/></td>
+            <td><span th:text="${cottage.streetAndNumber}"/></td>
+            <td><span th:text="${cottage.reservations}"/></td>
+
+            <td sec:authorize="hasRole('ADMIN')"><a
+                    th:href="@{edit?id=} + ${cottage.id} + @{&ampreg=} + ${cottage.region}">Edytuj</a></td>
+            <td sec:authorize="hasRole('ADMIN')"><a th:href="@{delete?id=} + ${cottage.id}">Usuń</a></td>
+            <td><a th:href="@{bookCottage/} + ${cottage.id}">Zarezerwuj domek</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="~{common::footer}"></footer>
+<div th:replace="~{common::bootstrapScripts}"></div>
+</body>
+</html>
